@@ -25,8 +25,7 @@ sh "mvn clean install"
 }
 }
 }
-stage('build')
-{
+stage('build'){
 steps{
 script{
 sh 'docker build . -t gursi05/Sonar_Pipeline:$Docker_tag'
