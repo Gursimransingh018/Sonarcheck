@@ -1,6 +1,12 @@
-
+def getDockerTag(){
+								def tag = sh script: 'git rev-parse HEAD', returnStdout: true
+								return tag
+								}
 pipeline {
 agent any
+environment{
+												Docker_tag = getDockerTag()
+								}
 stages {
 stage('Quality Gate status check') {
 steps{
@@ -19,4 +25,14 @@ sh "mvn clean install"
 }
 }
 }
-}
+stage('build')
+																{
+														steps{
+																		script{
+																			sh 'docker build . -t gursi05/Sonar_Pipeline:$Docker_tag'
+																																		sh 'docker login -u deekshithsn -p shinchan@20'
+																																		sh 'docker push gursi05/Sonar_Pipeline:$Docker_tag'
+																								}
+																							}
+																				}
+																	}
