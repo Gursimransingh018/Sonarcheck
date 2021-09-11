@@ -34,3 +34,4 @@ sh 'docker push gursi05/Sonar_Pipeline:$Docker_tag'
 }
 }
 }
+}
